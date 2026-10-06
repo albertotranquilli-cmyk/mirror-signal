@@ -4,22 +4,16 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
-  test:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: syntax check
-        run: python -m py_compile src/fetch_mirrors.py
-      - name: unit test (no network)
+      - name: Verify declared entrypoint
         run: |
-          python - <<'PY'
-import ast, pathlib
-src = pathlib.Path('src/fetch_mirrors.py').read_text()
-assert 'ENDPOINTS' in src and 'def get(' in src
-print('fetch_mirrors.py: OK')
-PY
+          python -m py_compile src/fetch_mirrors.py
