@@ -1,0 +1,25 @@
+{
+  "id": "mirror-signal",
+  "schema": 1,
+  "status": "scaffold_only",
+  "purpose": "Probe public mirror-stat endpoints for aggregate natural experiments",
+  "entrypoints": {
+    "syntax": "python -m py_compile src/fetch_mirrors.py"
+  },
+  "machine_outputs": [],
+  "network": {
+    "fetch": true
+  },
+  "agent_contract": {
+    "safe_autonomous": [
+      "syntax"
+    ],
+    "human_gate": [
+      "promote_to_capability"
+    ],
+    "forbidden": [
+      "personal_data_collection",
+      "claim_signal_before_parser_and_controls_exist"
+    ]
+  }
+}
